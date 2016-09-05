@@ -1,0 +1,47 @@
+administrador
+    id
+    nombre
+    apellido
+    email
+    password
+
+alumno
+    id
+    nombre
+    apellido
+    email
+    password
+    documento
+    
+profesor
+    id
+    nombre
+    apellido
+    email
+    password
+    documento
+
+
+curso
+    idCurso
+    nombre
+    descripcion
+    tematica
+    clasificacion (masivo, preferenciales)
+    fechaInicio
+    fechaFin
+    cupo
+
+
+
+inscripcion
+
+
+Usuario
+    id
+    nombre
+    apellido
+    email
+    password
+    documento
+    tipoUsuario
