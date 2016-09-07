@@ -2,10 +2,16 @@
 include_once 'administrador.php';
 
 $adm = new Administrador("mario", "arriola", "otromailddd12367", "pwd123");
+try{
+    $adm->insertar();
+}catch(Exception $e){
+    echo 'se capturo la exception';
+}
+    
 
-// for ($i=0; $i < 10; $i++) { 
-//     $adm->borrar($i);
-// }
+// $adm->setNombre("lautaro");
+
+// $adm->actualizar();
 
 
 ?>
