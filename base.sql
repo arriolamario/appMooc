@@ -11,7 +11,7 @@ CREATE TABLE appmooc.usuarios(
 );
 
 ALTER TABLE usuarios ADD estado bool NULL;
-
+--modifico aca
 -- id
 -- nombre
 -- apellido
