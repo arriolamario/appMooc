@@ -1,4 +1,5 @@
 <?php
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/appMooc/Funciones/funciones.php');
 $mysqli = false;
 
 function getConexion(){
@@ -46,35 +47,27 @@ function closeConexion(){
 function insertar($tabla, $datos){
     // INSERT INTO table (col1, col2)
     // VALUES ('COL1', 'COL2');
-    $query = "INSERT INTO $tabla ";
-    $columna = " (";
-    $valores = "VALUES (";
-    $primero = true;
-    foreach ($datos as $col => $value) {
-        if ($primero) {
-            $columna = "$columna$col";
-            $primero = !$primero;
-            if ($value["tipo"] == "string") {
-                $valores = "$valores'" . $value["valor"] . "'";
-            }elseif ($value["tipo"] == "numero") {
-                $valores = "$valores" . $value["valor"] . "";
-            }
-        }else{
-            $columna = "$columna, $col";
-            if ($value["tipo"] == "string") {
-                $valores = "$valores, '" . $value["valor"] . "'";
-            }elseif ($value["tipo"] == "numero") {
-                $valores = "$valores, " . $value["valor"] . "";
-            }
-        }
+    $query = armarQueryInsertar($tabla, $datos);
+    $retorno;
+    $conn = getConexion();
+    // echo "query: $query <br>";
+    mysqli_begin_transaction($conn);
+    if(mysqli_query($conn, $query)){
+        // echo 'se agrego correctamente <br>';
+        $id = mysqli_insert_id ($conn);
+        mysqli_commit($conn);
+        $retorno = array("success" => true, "retorno" => $id);
     }
-    $columna = "$columna)";
-    $valores = "$valores)";
-    $query = "$query $columna $valores;";
-    echo "$query <br>";
-    echo "$columna <br>";
-    echo "$valores <br>";
+    else{
+        // echo 'error <br>';
+        $msg = mysqli_error($conn);
+        $nro = mysqli_errno($conn);
+        mysqli_rollback($conn);
+        $retorno = array("success" => false, "retorno" => "Error numero $nro mensaje $msg");
+    }
+    closeConexion();
+    return $retorno;
 }
 
-insertar("usuario", array("id" => array("tipo" => "numero", "valor" => 1), "nombre" => array("tipo" => "string", "valor" => "mario"), "apellido" => array("tipo" => "string", "valor" => "arriola")));
+// insertar("usuario", array("id" => array("tipo" => "numero", "valor" => 1), "nombre" => array("tipo" => "string", "valor" => "mario"), "apellido" => array("tipo" => "string", "valor" => "arriola")));
 ?>

@@ -1,5 +1,5 @@
 <?php
-include_once 'conexion.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
 
 class Administrador{
     private $id;
@@ -30,111 +30,111 @@ class Administrador{
         echo "estado $this->estado<br>";
     }
 
-    public function insertar(){
-        // echo 'vamos a insertar <br>';
+    public function grabar(){
         $retorno;
-        $query = "INSERT INTO $this->tabla (nombre, apellido, email, password, tipousuario, estado) VALUES ('$this->nombre', '$this->apellido', '$this->email', '$this->password', '$this->tipoUsuario',$this->estado);";
-        $conn = getConexion();
-        // echo "query: $query <br>";
-        mysqli_begin_transaction($conn);
-        if(mysqli_query($conn, $query)){
-            // echo 'se agrego correctamente <br>';
-            $this->id = mysqli_insert_id ($conn);
-            mysqli_commit($conn);
+        $respuesta = insertar($this->tabla, $this->getArray());
+        if($respuesta["success"]){
+            $this->id = $respuesta["retorno"];
             $retorno = true;
+        }else {
+            echo $respuesta["retorno"];
+            $retorno = false;
         }
-        else{
-            // echo 'error <br>';
-            $msg = mysqli_error($conn);
-            $nro = mysqli_errno($conn);
-            mysqli_rollback($conn);
-            $retorno = "Error numero $nro mensaje $msg"; 
-        }
-        closeConexion();
+
         return $retorno;
     }
 
-    public function borrar($id){
-        echo "vamos a borrar el id $id";
-        $retorno;
-        $query = "DELETE FROM $this->tabla WHERE id = '$id'";
-        echo "query $query";
-        $conn = getConexion();
-        mysqli_begin_transaction($conn);
-        if(mysqli_query($conn, $query)){
-            if (mysqli_affected_rows($conn)>0) {
-                echo "se borro correctamente";
-            }
-            else{
-                echo "No se encontro";
-            }
-            mysqli_commit($conn);
-            $retorno = true;
-        }
-        else{
-            // echo "error en la consulta";
-            $msg = mysqli_error($conn);
-            $nro = mysqli_errno($conn);
-            mysqli_rollback($conn);
-            $retorno = "Error numero $nro mensaje $msg";
-        }
-        closeConexion();
-        return $retorno;
+    private function getArray(){
+        return array("nombre" => array("tipo" => "string", "valor" => $this->nombre),
+                     "apellido" => array("tipo" => "string", "valor" => $this->apellido),
+                     "email" => array("tipo" => "string", "valor" => $this->email),
+                     "password" => array("tipo" => "string", "valor" => $this->password),
+                     "tipousuario" => array("tipo" => "string", "valor" => $this->tipoUsuario),
+                     "estado" => array("tipo" => "numero", "valor" => $this->estado)
+                    );
     }
 
-    public function actualizar(){
-        echo 'vamos a actualizar <br>';
-        // -- id
-        // -- nombre
-        // -- apellido
-        // -- email
-        // -- password
-        // -- documento
-        // -- tipoUsuario
-        // -- estado
-        $retorno;
-        $query = "UPDATE $this->tabla SET 
-            nombre = '$this->nombre',
-            apellido = '$this->apellido',
-            email = '$this->email',
-            password = '$this->password',
-            tipoUsuario = '$this->tipoUsuario',
-            estado = '$this->estado'
-            WHERE id = $this->id;";
-        echo "query $query <br>";
-        $conn = getConexion();
-        mysqli_begin_transaction($conn);
-        if(mysqli_query($conn, $query)){
-            if(mysqli_affected_rows($conn) > 0){
-                echo 'se actualizo correctamente <br>';
-            }else{
-                echo 'no se actualizo <br>';
-            }
-            mysqli_commit($conn);
-            $retorno = true;
-        }else{
-            // echo "error en la consulta";
-            $msg = mysqli_error($conn);
-            $nro = mysqli_errno($conn);
-            mysqli_rollback($conn);
-            $retorno = "Error numero $nro mensaje $msg";
-        }
-        closeConextion();
-        return $retorno;
-    }
+    // public function borrar($id){
+    //     echo "vamos a borrar el id $id";
+    //     $retorno;
+    //     $query = "DELETE FROM $this->tabla WHERE id = '$id'";
+    //     echo "query $query";
+    //     $conn = getConexion();
+    //     mysqli_begin_transaction($conn);
+    //     if(mysqli_query($conn, $query)){
+    //         if (mysqli_affected_rows($conn)>0) {
+    //             echo "se borro correctamente";
+    //         }
+    //         else{
+    //             echo "No se encontro";
+    //         }
+    //         mysqli_commit($conn);
+    //         $retorno = true;
+    //     }
+    //     else{
+    //         // echo "error en la consulta";
+    //         $msg = mysqli_error($conn);
+    //         $nro = mysqli_errno($conn);
+    //         mysqli_rollback($conn);
+    //         $retorno = "Error numero $nro mensaje $msg";
+    //     }
+    //     closeConexion();
+    //     return $retorno;
+    // }
 
-    public function getUsuariosLogin($email = -1, $password = -1){
-        $query = "SELECT * FROM $this->tabla";
-        if ($email != -1 && $password != -1) {
-            $query = "$query WHERE email = '$email' AND password = '$password';"
-        }else{
-            $query = "$query;";
-        }
-        $conn = getConexion();
-        mysqli_begin_transaction($conn);
-        $retorno;
-        if()
-    }
+    // public function actualizar(){
+    //     echo 'vamos a actualizar <br>';
+    //     // -- id
+    //     // -- nombre
+    //     // -- apellido
+    //     // -- email
+    //     // -- password
+    //     // -- documento
+    //     // -- tipoUsuario
+    //     // -- estado
+    //     $retorno;
+    //     $query = "UPDATE $this->tabla SET 
+    //         nombre = '$this->nombre',
+    //         apellido = '$this->apellido',
+    //         email = '$this->email',
+    //         password = '$this->password',
+    //         tipoUsuario = '$this->tipoUsuario',
+    //         estado = '$this->estado'
+    //         WHERE id = $this->id;";
+    //     echo "query $query <br>";
+    //     $conn = getConexion();
+    //     mysqli_begin_transaction($conn);
+    //     if(mysqli_query($conn, $query)){
+    //         if(mysqli_affected_rows($conn) > 0){
+    //             echo 'se actualizo correctamente <br>';
+    //         }else{
+    //             echo 'no se actualizo <br>';
+    //         }
+    //         mysqli_commit($conn);
+    //         $retorno = true;
+    //     }else{
+    //         // echo "error en la consulta";
+    //         $msg = mysqli_error($conn);
+    //         $nro = mysqli_errno($conn);
+    //         mysqli_rollback($conn);
+    //         $retorno = "Error numero $nro mensaje $msg";
+    //     }
+    //     closeConextion();
+    //     return $retorno;
+    // }
+
+    // public function getUsuariosLogin($email = -1, $password = -1){
+    //     $query = "SELECT * FROM $this->tabla";
+    //     if ($email != -1 && $password != -1) {
+    //         $query = "$query WHERE email = '$email' AND password = '$password';"
+    //     }else{
+    //         $query = "$query;";
+    //     }
+    //     $conn = getConexion();
+    //     mysqli_begin_transaction($conn);
+    //     $retorno;
+    //     if()
+    // }
         // -- nombre
     public function getNombre(){return $this->nombre;}
     public function setNombre($value){$this->nombre = $value;}
