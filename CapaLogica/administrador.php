@@ -11,11 +11,26 @@ class Administrador{
     private $estado = 1;
     private $tabla = "usuarios";
 
-    public function __construct($nombre, $apellido, $email, $password){
+    public function __construct2($nombre, $apellido, $email, $password){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
         $this->password = $password;
+    }
+
+    public function __construct1($id){
+        $resultado = select($tabla, array("id" => $id));
+        if($resultado){
+            while($fila = mysqli_fetch_assoc($resultado)){
+                $this->id = $fila["id"];
+                $this->nombre = $fila["nombre"];
+                $this->apellido = $fila["apellido"];
+                $this->email = $fila["email"];
+                $this->password = $fila["password"];
+                $this->tipoUsuario = $fila["tipousuario"];
+                $this->estado = $fila["estado"];
+            }
+        }
     }
 
     public function mostrarDatos(){
@@ -45,42 +60,18 @@ class Administrador{
     }
 
     private function getArray(){
-        return array("nombre" => array("tipo" => "string", "valor" => $this->nombre),
-                     "apellido" => array("tipo" => "string", "valor" => $this->apellido),
-                     "email" => array("tipo" => "string", "valor" => $this->email),
-                     "password" => array("tipo" => "string", "valor" => $this->password),
-                     "tipousuario" => array("tipo" => "string", "valor" => $this->tipoUsuario),
-                     "estado" => array("tipo" => "numero", "valor" => $this->estado)
+        return array("nombre" => "'$this->nombre'",
+                     "apellido" => "'$this->apellido'",
+                     "email" => "'$this->email",
+                     "password" => "'$this->password'",
+                     "tipousuario" => "'$this->tipoUsuario'",
+                     "estado" => $this->estado
                     );
     }
 
-    // public function borrar($id){
-    //     echo "vamos a borrar el id $id";
-    //     $retorno;
-    //     $query = "DELETE FROM $this->tabla WHERE id = '$id'";
-    //     echo "query $query";
-    //     $conn = getConexion();
-    //     mysqli_begin_transaction($conn);
-    //     if(mysqli_query($conn, $query)){
-    //         if (mysqli_affected_rows($conn)>0) {
-    //             echo "se borro correctamente";
-    //         }
-    //         else{
-    //             echo "No se encontro";
-    //         }
-    //         mysqli_commit($conn);
-    //         $retorno = true;
-    //     }
-    //     else{
-    //         // echo "error en la consulta";
-    //         $msg = mysqli_error($conn);
-    //         $nro = mysqli_errno($conn);
-    //         mysqli_rollback($conn);
-    //         $retorno = "Error numero $nro mensaje $msg";
-    //     }
-    //     closeConexion();
-    //     return $retorno;
-    // }
+    public function eliminar(){
+
+    }
 
     // public function actualizar(){
     //     echo 'vamos a actualizar <br>';
