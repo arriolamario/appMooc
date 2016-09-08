@@ -19,7 +19,7 @@ class Administrador{
     }
 
     public function __construct1($id){
-        $resultado = select($tabla, array("id" => $id));
+        $resultado = select($tabla, array("columna" => "id", "valor" => $id));
         if($resultado){
             while($fila = mysqli_fetch_assoc($resultado)){
                 $this->id = $fila["id"];
