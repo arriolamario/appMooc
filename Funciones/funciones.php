@@ -45,6 +45,7 @@ function armarQueryUpdate($table, $datos, $where){
         }
     }
     $query = "$query;";
+    echo "$query";
     return $query;
 }
 

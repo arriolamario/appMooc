@@ -44,10 +44,11 @@ function closeConexion(){
 }
 
 
-function insertar($tabla, $datos){
+function insert($tabla, $datos){
     // INSERT INTO table (col1, col2)
     // VALUES ('COL1', 'COL2');
     $query = armarQueryInsertar($tabla, $datos);
+    echo "query $query <br>";
     $retorno;
     $conn = getConexion();
     // echo "query: $query <br>";
@@ -69,7 +70,7 @@ function insertar($tabla, $datos){
     return $retorno;
 }
 
-function borrar($tabla, $datos){
+function delete($tabla, $datos){
     $query = "DELETE FROM $tabla WHERE " . $datos["columna"] . " = " . $datos["valor"] .";";
     // echo "$query";
     $conn = getConexion();
@@ -96,7 +97,7 @@ function borrar($tabla, $datos){
     return $retorno;
 }
 
-function actualizar($table, $datos, $where){
+function update($table, $datos, $where){
     $query = armarQueryUpdate($table, $datos, $where);
     
     $conn = getConexion();
@@ -122,7 +123,7 @@ function actualizar($table, $datos, $where){
 
         $retorno = array("success" => false, "retorno" => $mensaje);
     }
-    closeConextion();
+    closeConexion();
     return $retorno;
 }
 

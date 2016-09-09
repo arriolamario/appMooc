@@ -11,15 +11,18 @@ class Administrador{
     private $estado = 1;
     private $tabla = "usuarios";
 
-    public function __construct2($nombre, $apellido, $email, $password){
-        $this->nombre = $nombre;
-        $this->apellido = $apellido;
-        $this->email = $email;
-        $this->password = $password;
-    }
-
-    public function __construct1($id){
-        $resultado = select($tabla, array("columna" => "id", "valor" => $id));
+    function __construct()
+    { 
+        $a = func_get_args(); 
+        $i = func_num_args(); 
+        if (method_exists($this,$f='__construct'.$i)) { 
+            call_user_func_array(array($this,$f),$a); 
+        } 
+    } 
+    
+    function __construct1($id)
+    { 
+        $resultado = select($this->tabla, array("columna" => "id", "valor" => $id));
         if($resultado){
             while($fila = mysqli_fetch_assoc($resultado)){
                 $this->id = $fila["id"];
@@ -27,13 +30,22 @@ class Administrador{
                 $this->apellido = $fila["apellido"];
                 $this->email = $fila["email"];
                 $this->password = $fila["password"];
-                $this->tipoUsuario = $fila["tipousuario"];
+                $this->tipoUsuario = $fila["tipoUsuario"];
                 $this->estado = $fila["estado"];
             }
         }
+    } 
+    
+    public function __construct4($nombre, $apellido, $email, $password)
+    {
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->email = $email;
+        $this->password = $password;
     }
 
-    public function mostrarDatos(){
+    public function mostrarDatos()
+    {
         if($this->id){
             echo "id $this->id<br>";    
         }
@@ -45,24 +57,26 @@ class Administrador{
         echo "estado $this->estado<br>";
     }
 
-    public function grabar(){
+    public function grabar()
+    {
         $retorno;
-        $respuesta = insertar($this->tabla, $this->getArray());
+        $respuesta = insert($this->tabla, $this->getArray());
         if($respuesta["success"]){
             $this->id = $respuesta["retorno"];
             $retorno = true;
         }else {
-            echo $respuesta["retorno"];
+            // echo $respuesta["retorno"];
             $retorno = false;
         }
 
         return $retorno;
     }
 
-    private function getArray(){
+    private function getArray()
+    {
         return array("nombre" => "'$this->nombre'",
                      "apellido" => "'$this->apellido'",
-                     "email" => "'$this->email",
+                     "email" => "'$this->email'",
                      "password" => "'$this->password'",
                      "tipousuario" => "'$this->tipoUsuario'",
                      "estado" => $this->estado
@@ -70,49 +84,25 @@ class Administrador{
     }
 
     public function eliminar(){
-
+        $respuesta = delete($this->tabla, array("columna" => "id", "valor" => $this->id));
+        return $respuesta["success"];
     }
 
-    // public function actualizar(){
-    //     echo 'vamos a actualizar <br>';
-    //     // -- id
-    //     // -- nombre
-    //     // -- apellido
-    //     // -- email
-    //     // -- password
-    //     // -- documento
-    //     // -- tipoUsuario
-    //     // -- estado
-    //     $retorno;
-    //     $query = "UPDATE $this->tabla SET 
-    //         nombre = '$this->nombre',
-    //         apellido = '$this->apellido',
-    //         email = '$this->email',
-    //         password = '$this->password',
-    //         tipoUsuario = '$this->tipoUsuario',
-    //         estado = '$this->estado'
-    //         WHERE id = $this->id;";
-    //     echo "query $query <br>";
-    //     $conn = getConexion();
-    //     mysqli_begin_transaction($conn);
-    //     if(mysqli_query($conn, $query)){
-    //         if(mysqli_affected_rows($conn) > 0){
-    //             echo 'se actualizo correctamente <br>';
-    //         }else{
-    //             echo 'no se actualizo <br>';
-    //         }
-    //         mysqli_commit($conn);
-    //         $retorno = true;
-    //     }else{
-    //         // echo "error en la consulta";
-    //         $msg = mysqli_error($conn);
-    //         $nro = mysqli_errno($conn);
-    //         mysqli_rollback($conn);
-    //         $retorno = "Error numero $nro mensaje $msg";
-    //     }
-    //     closeConextion();
-    //     return $retorno;
-    // }
+
+     
+    public function actualizar(){
+    // update($table, $datos, $where)
+        $retorno = update($this->tabla, $this->getArray(), array("id" => $this->id));
+
+        if($retorno["success"]){
+            $retorno = true;
+        }else{
+            // echo $retorno["retorno"];
+            $retorno = false;
+        }
+
+        return $retorno;
+    }
 
     // public function getUsuariosLogin($email = -1, $password = -1){
     //     $query = "SELECT * FROM $this->tabla";
@@ -147,4 +137,17 @@ class Administrador{
 
 
 }
+
+    // $adm = new Administrador("mario","apellido","aa@mail.com","pwd");
+    // $adm->grabar();
+    // $adm->mostrarDatos(); 
+    // $adm->eliminar();
+
+    $adm = new Administrador(19);
+    $adm->mostrarDatos();
+    $adm->setNombre("lautaroActualizando");
+    $adm->setApellido("arriolaActualizando");
+    $adm->actualizar();
+    $adm->mostrarDatos();
+
 ?>
