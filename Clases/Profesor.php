@@ -1,14 +1,15 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
 
-class Administrador{
+class Profesor{
     private $id;
     private $nombre;
     private $apellido;
     private $email;
     private $password;
-    private $tipoUsuario = "A";
+    private $tipoUsuario = "PROFESOR";
     private $estado = 1;
+    private $documento;
     private $tabla = "usuarios";
 
     function __construct()
@@ -25,23 +26,25 @@ class Administrador{
         $resultado = select($this->tabla, array("columna" => "id", "valor" => $id));
         if($resultado){
             while($fila = mysqli_fetch_assoc($resultado)){
-                $this->id = $fila["id"];
+                $this->id = intval($fila["id"]);
                 $this->nombre = $fila["nombre"];
                 $this->apellido = $fila["apellido"];
                 $this->email = $fila["email"];
                 $this->password = $fila["password"];
                 $this->tipoUsuario = $fila["tipoUsuario"];
-                $this->estado = $fila["estado"];
+                $this->estado = intval($fila["estado"]);
+                $this->documento = $fila["documento"];
             }
         }
     } 
     
-    public function __construct4($nombre, $apellido, $email, $password)
+    public function __construct5($nombre, $apellido, $email, $password, $documento)
     {
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
         $this->password = $password;
+        $this->documento = $documento;
     }
 
     public function mostrarDatos()
@@ -55,6 +58,7 @@ class Administrador{
         echo "password $this->password<br>";
         echo "tipoUsuario $this->tipoUsuario<br>";
         echo "estado $this->estado<br>";
+        echo "documento $this->documento<br>";
     }
 
     public function grabar()
@@ -79,7 +83,8 @@ class Administrador{
                      "email" => "'$this->email'",
                      "password" => "'$this->password'",
                      "tipousuario" => "'$this->tipoUsuario'",
-                     "estado" => $this->estado
+                     "estado" => $this->estado,
+                     "documento" => "'$this->documento'"
                     );
     }
 
@@ -131,7 +136,12 @@ class Administrador{
         // -- estado
     public function getEstado(){return $this->estado;}
     public function setEstado($value){$this->estado = $value;}
-
+        // -- documento
+    public function getDocumento(){return $this->documento;}
+    public function setDocumento($value){$this->documento = $value;}
+        // -- id
+    public function getId(){return $this->id;}
+    public function setId($value){$this->id = $value;}
 
 
 
@@ -142,12 +152,37 @@ class Administrador{
     // $adm->grabar();
     // $adm->mostrarDatos(); 
     // $adm->eliminar();
+    
+    // $alumno = new Profesor("alejandra","diaz","a@diaz.com","diaazpwd","36692161");
+    // echo "grabamos";
+    // if($alumno->grabar()){
+    //     echo "se grabo correctamente<br>";
+    // }else{
+    //     echo "No se grabo correctamente<br>";
+    // }
+    
+    // $alumno->mostrarDatos();
 
-    $adm = new Administrador(19);
-    $adm->mostrarDatos();
-    $adm->setNombre("lautaroActualizando");
-    $adm->setApellido("arriolaActualizando");
-    $adm->actualizar();
-    $adm->mostrarDatos();
+    // $alumno->setDocumento("otro documento");
+    // $alumno->setEstado(0);
 
+    // // echo "actualizamos<br>";
+    // if($alumno->actualizar()){
+    //     echo "se actualizo correctamente<br>";
+    // }else{
+    //     echo "no se actualizo correctamente<br>";
+    // }
+
+    // echo "creamos una instancia nueva de alumno guardada en la base<br>";
+    // $alumno2 = new Profesor($alumno->getId());
+
+    // $alumno2->mostrarDatos();
+
+    // echo "eliminamos<br>";
+
+    // if($alumno->eliminar()){
+    //     echo "se elimino correctamente<br>";
+    // }else{
+    //     echo "no se elimino correctamente<br>";
+    // }
 ?>

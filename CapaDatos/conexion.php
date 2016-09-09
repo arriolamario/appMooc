@@ -48,7 +48,7 @@ function insert($tabla, $datos){
     // INSERT INTO table (col1, col2)
     // VALUES ('COL1', 'COL2');
     $query = armarQueryInsertar($tabla, $datos);
-    echo "query $query <br>";
+    // echo "query $query <br>";
     $retorno;
     $conn = getConexion();
     // echo "query: $query <br>";
