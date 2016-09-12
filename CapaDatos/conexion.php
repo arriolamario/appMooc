@@ -140,7 +140,7 @@ function select($table, $datos){
     return $resultado;
 }
 
-function login($email, $password)
+
 // insertar("usuario", array("id" => array("tipo" => "numero", "valor" => 1), "nombre" => array("tipo" => "string", "valor" => "mario"), "apellido" => array("tipo" => "string", "valor" => "arriola")));
 
 // PRUEBA DE BORRADO
