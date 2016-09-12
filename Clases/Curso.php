@@ -42,25 +42,6 @@ class Curso{
                 $this->cupo = $fila["cupo"];
             }
         }
-
-        // $resultado = select("dicta", array("columna" => "idcurso", "valor" => $this->id));
-        // if($resultado){
-        //     $cant = 0;
-        //     while($fila = mysqli_fetch_assoc($resultado)){
-        //         $profesor = new Profesor($fila["idProfesor"]);
-        //         $Pofesores[$cant] = $profesor;
-        //         $cant = $cant + 1;
-        //     }
-        // }
-        // $resultado = select("cursado", array("columna" => "idcurso", "valor" => $this->id));
-        // if($resultado){
-        //     $cant = 0;
-        //     while($fila = mysqli_fetch_assoc($resultado)){
-        //         $alumno = new Alumno($fila["idProfesor"]);
-        //         $Alumnos[$cant] = $alumno;
-        //         $cant = $cant + 1;
-        //     }
-        // }
     } 
     
     //constructor para curso preferencial
