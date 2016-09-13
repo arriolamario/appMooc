@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/appMooc/Funciones/funciones.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/Funciones/armarQuery.php');
 $mysqli = false;
 
 function getConexion(){
@@ -128,7 +128,16 @@ function update($table, $datos, $where){
 }
 
 function select($table, $datos){
-    $query = "SELECT * FROM $table WHERE " . $datos["columna"] . " = " . $datos["valor"] . ";";
+    $query = "SELECT * FROM $table WHERE ";
+    $primero = true;
+    foreach ($datos as $col => $value) {
+        if ($primero) {
+            $query = "$query $col = $value";
+            $primero = !$primero;
+        }else{
+            $query = "$query AND $col = $value";
+        }
+    }
     // echo $query;
 
     $conn = getConexion();
@@ -159,5 +168,6 @@ function select($table, $datos){
 // actualizar("usuarios",array("nombre" => "'mario'", "estado" => "1"),array("id" => "3", "nombre" => "'lautaro'"));
 
 // select("usuarios", array('columna' => "id", "valor" => 5 ));
+
 
 ?>

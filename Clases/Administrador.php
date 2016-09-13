@@ -22,7 +22,7 @@ class Administrador{
     
     function __construct1($id)
     { 
-        $resultado = select($this->tabla, array("columna" => "id", "valor" => $id));
+        $resultado = select($this->tabla, array("id" => $id));
         if($resultado){
             while($fila = mysqli_fetch_assoc($resultado)){
                 $this->id = intval($fila["id"]);

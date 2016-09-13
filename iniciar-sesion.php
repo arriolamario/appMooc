@@ -1,5 +1,14 @@
 <?php
-  
+  require_once ($_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/login.php');
+  if(isset($_POST["email"], $_POST["password"])){
+    $resultado = login($_POST["email"], $_POST["password"]);
+    if($resultado["success"]){
+      $usuario = $resultado["usuario"];
+      $usuario->mostrarDatos();
+    }else{
+      echo $resultado["mensaje"];
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,14 +56,14 @@
     </div>
     <div class="col-sm-8 text-left">
       <h1>Iniciar Sesión</h1>
-      <form>
+      <form action="#" method="POST">
         <div class="form-group">
-          <label for="email">Correo Electrónico</label>
-          <input type="email" class="form-control" id="email">
+          <label for="correo">Correo Electrónico</label>
+          <input type="email" class="form-control" id="correo" name="email">
         </div>
         <div class="form-group">
           <label for="pwd">Contraseña</label>
-          <input type="password" class="form-control" id="pwd">
+          <input type="password" class="form-control" id="pwd" name="password">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
         <button type="button" class="btn btn-default">Registrar Cuenta</button>

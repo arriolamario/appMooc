@@ -1,5 +1,5 @@
 -- TABLA USUARIOS
-CREATE TABLE appmooc.usuarios(
+CREATE TABLE usuarios(
      id INT NOT NULL AUTO_INCREMENT,
      nombre VARCHAR(20) NULL,
      apellido VARCHAR(20) NULL,
@@ -7,10 +7,9 @@ CREATE TABLE appmooc.usuarios(
      password VARCHAR(20) NULL,
      documento VARCHAR(20) NULL,
      tipoUsuario VARCHAR(20) NULL,
+     estado BOOL NULL,
      PRIMARY KEY (id) 
 );
-
-ALTER TABLE usuarios ADD estado bool NULL;
 
 -- id
 -- nombre
@@ -29,9 +28,10 @@ CREATE TABLE cursos(
     fechaFin DATE NULL,
     detalle VARCHAR(20) NULL,
     estado BOOL null,
-    PRIMARY KEY (id) 
+    cupo VARCHAR(20) NULL,
+    PRIMARY KEY (id)
 );
-ALTER TABLE cursos ADD cupo VARCHAR(20) NULL;
+
 CREATE TABLE modulo(
     id INT NOT NULL AUTO_INCREMENT,
     idCurso INT NOT NULL,
@@ -39,7 +39,8 @@ CREATE TABLE modulo(
     estado VARCHAR(20) NULL,
     fecha DATE NULL,
     PRIMARY KEY(id),
-    UNIQUE(idCurso, nombre)
+    UNIQUE(idCurso, nombre),
+    FOREIGN KEY(idCurso) REFERENCES cursos(idCurso)
 );
 
 CREATE TABLE contenido(
