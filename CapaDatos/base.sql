@@ -1,3 +1,4 @@
+drop table usuarios;
 -- TABLA USUARIOS
 CREATE TABLE usuarios(
      id INT NOT NULL AUTO_INCREMENT,
@@ -18,7 +19,7 @@ CREATE TABLE usuarios(
 -- password
 -- documento
 -- tipoUsuario
-
+drop tabla cursos;
 CREATE TABLE cursos(
     id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(20) NULL,
@@ -31,6 +32,8 @@ CREATE TABLE cursos(
     cupo VARCHAR(20) NULL,
     PRIMARY KEY (id)
 );
+
+drop table modulos;
 
 CREATE TABLE modulo(
     id INT NOT NULL AUTO_INCREMENT,
@@ -50,6 +53,8 @@ CREATE TABLE contenido(
     PRIMARY KEY(id)
 );
 
+drop table dicta;
+
 CREATE TABLE dicta(
     idprofesor INT NOT NULL,
     idcurso INT NOT NULL,
@@ -57,6 +62,8 @@ CREATE TABLE dicta(
     estado BOOL
 );
 
+
+drop table cursado;
 CREATE TABLE cursado(
     idalumno INT NOT NULL,
     idcurso INT NOT NULL,

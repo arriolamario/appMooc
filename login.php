@@ -1,3 +1,7 @@
+<?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/registrar.php';
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -9,6 +13,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/login.js"></script>
+	<script src="js/validacionForm.js"></script>
 </head>
 
 <body>
@@ -43,7 +48,7 @@
 										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Correo Electronico" value="">
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
+										<input type="password" name="password" id="clave" tabindex="2" class="form-control" placeholder="Contraseña">
 									</div>
 									<div class="form-group text-center">
 										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -66,15 +71,15 @@
 										</div>
 									</div>
 								</form>
-								<form id="register-form" action="" method="post" role="form" style="display: none;">
+								<form id="register-form" action="#" method="post" role="form" style="display: none;" onsubmit="return validarFormRegistrar()">
 									<div class="form-group">
-										<input type="text" name="apellido" id="username" tabindex="1" class="form-control" placeholder="Apellido" value="">
+										<input type="text" name="apellido" id="apellido" tabindex="1" class="form-control" placeholder="Apellido" value="">
 									</div>
 									<div class="form-group">
-										<input type="text" name="nombre" id="username" tabindex="1" class="form-control" placeholder="Nombre" value="">
+										<input type="text" name="nombre" id="nombre" tabindex="1" class="form-control" placeholder="Nombre" value="">
 									</div>
 									<div class="form-group">
-										<input type="text" name="documento" id="username" tabindex="1" class="form-control" placeholder="Documento" value="">
+										<input type="text" name="documento" id="documento" tabindex="1" class="form-control" placeholder="Documento" value="">
 									</div>
 									<div class="form-group">
 										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo Electronico" value="">
@@ -87,9 +92,12 @@
 									</div>
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Registrar">
-											</div>
+											<div class="error" id="CartelError"></div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-6 col-sm-offset-3">
+											<input type="submit" name="registrar" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Registrar">
 										</div>
 									</div>
 								</form>

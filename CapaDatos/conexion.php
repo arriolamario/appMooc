@@ -5,16 +5,16 @@ $mysqli = false;
 function getConexion(){
     global $mysqli;
     //CASA
-    // $servidor = "localhost";
-    // $usuario = "mario";
-    // $contraseña = "";
-    // $basedatos = "appmooc";
-    
-    //SMARTIX
     $servidor = "localhost";
-    $usuario = "root";
+    $usuario = "mario";
     $contraseña = "";
     $basedatos = "appmooc";
+    
+    //SMARTIX
+    // $servidor = "localhost";
+    // $usuario = "root";
+    // $contraseña = "";
+    // $basedatos = "appmooc";
     
     if($mysqli){
         // echo 'devolvemos la conexion creada<br>';
