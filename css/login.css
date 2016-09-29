@@ -109,3 +109,15 @@
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
+
+/*------------------CARRUZEL-----------------------*/
+
+.carousel>.carousel-inner>.item>img{
+	width: 100%;
+}
+
+#myCarousel{
+	width: 70%;
+	margin: auto;
+}
+
