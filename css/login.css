@@ -126,18 +126,10 @@
 
 
 /*------------------items contenido -----------------------*/
+.card{
+	text-align: center;
+}
 
-.ItemCurso{
-	border-radius: 30px;
-	background-color: royalblue;
-}
-.ItemCurso>.tituloItemCurso{
-	text-align: center;
-	display: block;
-}
-.ItemCurso>.imagenItemCurso{
-	text-align: center;
-}
-.ItemCurso>.imagenItemCurso>img{
-	width: 45%;
+.card-img-top{
+	width: 50%;
 }
