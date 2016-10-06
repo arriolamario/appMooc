@@ -1,26 +1,31 @@
-
-CREATE TABLE IF NOT EXISTS usuario (
-  id int(11),
-  dni varchar(255),
-  nombre varchar(255),
-  apellido varchar(255),
-  mail varchar(255),
-  bajaLogica BOOL,
-  idCreador int(11),
-  idLocalidad int(11),
-  fechaNac date,
-  password varchar(255)
-  
+CREATE TABLE  rol (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(255) NOT NULL,
 );
 
-CREATE TABLE IF NOT EXISTS categoria (
-  id int(11),
-  nombre varchar(255),
-  estado BOOL,
-  bajaLogica BOOL
+CREATE TABLE  usuario (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  dni varchar(255) NOT NULL,
+  nombre varchar(255) NOT NULL,
+  apellido varchar(255) NOT NULL,
+  mail varchar(255) NOT NULL,
+  bajaLogica BOOL NOT NULL,
+  idCreador int(11) NULL,
+  idLocalidad int(11) NOT NULL,
+  fechaNac date NOT NULL,
+  password varchar(255) NOT NULL,
+  idRol varchar(255) NOT NULL,
+  CONSTRAINT PK_USUARIO PRIMARY KEY (id),
+  CONSTRAINT UQ_USUARIO_MAIL UNIQUE(mail),
+  CONSTRAINT FK_USUARIO_USUARIO FOREIGN KEY(idCreador) REFERENCES usuario(id),
+  CONSTRAINT FK_USUARIO_ROL FOREIGN KEY(idRol) REFERENCES rol(id),
+  CONSTRAINT FK_USUARIO_LOCALIDAD FOREIGN KEY(idLocalidad) REFERENCES localidad(id)
 );
 
-CREATE TABLE IF NOT EXISTS curso (
+
+--listo hasta aca
+
+CREATE TABLE  curso (
   id int(11),
   idCategoria int(11),
   idAdmin int(11),
@@ -37,7 +42,16 @@ CREATE TABLE IF NOT EXISTS curso (
   bajaLogica BOOL
 );
 
-CREATE TABLE IF NOT EXISTS denuncia (
+CREATE TABLE  categoria (
+  id int(11),
+  nombre varchar(255),
+  estado BOOL,
+  bajaLogica BOOL
+);
+
+
+
+CREATE TABLE  denuncia (
   idDenuncia int(11),
   idTipoDenuncia int(11),
   descripcionDenuncia text,
@@ -48,7 +62,7 @@ CREATE TABLE IF NOT EXISTS denuncia (
   bajaLogica BOOL
 );
 
-CREATE TABLE IF NOT EXISTS dicta (
+CREATE TABLE  dicta (
   idCurso int(11),
   idProfesor int(11),
   fechaAsignacion date,
@@ -56,7 +70,7 @@ CREATE TABLE IF NOT EXISTS dicta (
   bajaLogica BOOL
 );
 
-CREATE TABLE IF NOT EXISTS direccion (
+CREATE TABLE  direccion (
   idEstudiante int(11),
   idProvincia int(11),
   idLocalidad int(11),
@@ -66,7 +80,7 @@ CREATE TABLE IF NOT EXISTS direccion (
   depto int(11) 
 );
 
-CREATE TABLE IF NOT EXISTS evaluacion (
+CREATE TABLE  evaluacion (
   idExamen int(11),
   idEstudiante int(11),
   idCurso int(11),
@@ -74,7 +88,7 @@ CREATE TABLE IF NOT EXISTS evaluacion (
   bajaLogica BOOL
 );
 
-CREATE TABLE IF NOT EXISTS examen (
+CREATE TABLE  examen (
   idExamen int(11),
   nroModulo int(11),
   idCurso int(11),
@@ -82,7 +96,7 @@ CREATE TABLE IF NOT EXISTS examen (
   bajaLogica BOOL
 );
 
-CREATE TABLE IF NOT EXISTS examenpreguntas (
+CREATE TABLE  examenpreguntas (
   idExamen int(11),
   pregunta varchar(255),
   opcion1 varchar(255),
@@ -92,7 +106,7 @@ CREATE TABLE IF NOT EXISTS examenpreguntas (
   bajaLogica BOOL
 );
 
-CREATE TABLE IF NOT EXISTS inscripcion (
+CREATE TABLE  inscripcion (
   idEstudiante int(11),
   idCurso int(11),
   rating int(11),
@@ -104,15 +118,9 @@ CREATE TABLE IF NOT EXISTS inscripcion (
   fecha date
 );
 
-CREATE TABLE IF NOT EXISTS localidad (
-  idLocalidad int(11),
-  idProvincia int(11),
-  nombreLocalidad varchar(255),
-  cp varchar(255),
-  bajaLogica int(1)
-);
 
-CREATE TABLE IF NOT EXISTS modulo (
+
+CREATE TABLE  modulo (
   nroModulo int(11),
   idCurso int(11),
   titulo varchar(255),
@@ -125,13 +133,9 @@ CREATE TABLE IF NOT EXISTS modulo (
   bajaLogica BOOL
 );
 
-CREATE TABLE IF NOT EXISTS provincia (
-  idProvincia int(11),
-  nombre varchar(255),
-  bajaLogica BOOL
-);
 
-CREATE TABLE IF NOT EXISTS tipodenuncia (
+
+CREATE TABLE  tipodenuncia (
   idTipoDenuncia int(11),
   descripcion varchar(255),
   bajaLogica BOOL

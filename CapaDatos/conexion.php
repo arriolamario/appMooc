@@ -8,13 +8,13 @@ function getConexion(){
     // $servidor = "localhost";
     // $usuario = "mario";
     // $contraseña = "";
-    // $basedatos = "appmooc";
+    // $basedatos = "appmooc2";
     
     //SMARTIX
     $servidor = "localhost";
     $usuario = "root";
     $contraseña = "";
-    $basedatos = "appmooc";
+    $basedatos = "appmooc2";
     
     if($mysqli){
         // echo 'devolvemos la conexion creada<br>';
@@ -127,15 +127,20 @@ function update($table, $datos, $where){
     return $retorno;
 }
 
-function select($table, $datos){
-    $query = "SELECT * FROM $table WHERE ";
-    $primero = true;
-    foreach ($datos as $col => $value) {
-        if ($primero) {
-            $query = "$query $col = $value";
-            $primero = !$primero;
-        }else{
-            $query = "$query AND $col = $value";
+function select($table, $datos = '*'){
+    
+    if($datos === '*'){
+        $query = "SELECT * FROM $table";
+    }else{
+        $query = "SELECT * FROM $table WHERE ";
+        $primero = true;
+        foreach ($datos as $col => $value) {
+            if ($primero) {
+                $query = "$query $col = $value";
+                $primero = !$primero;
+            }else{
+                $query = "$query AND $col = $value";
+            }
         }
     }
     // echo $query;

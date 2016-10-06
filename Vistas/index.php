@@ -1,6 +1,7 @@
-<!--<?php
+<?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/RegistrarIniciar.php';
-?>-->
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/Funciones/getProvinciaLocalidad.php';
+?>
 
 <!DOCTYPE HTML>
 <!-- Website template by freewebsitetemplates.com -->
@@ -102,10 +103,21 @@
 								<input required type="text" name="nombre" id="nombre" tabindex="1" class="form-control" placeholder="Nombre" value="">
 							</div>
 							<div class="form-group">
-								<input required type="text" name="documento" id="documento" tabindex="1" class="form-control" placeholder="Documento" value="">
+								<input required type="number" name="documento" id="documento" tabindex="1" class="form-control" placeholder="Documento" value="">
 							</div>
 							<div class="form-group">
 								<input required type="date" name="fechaNac" id="fechaNac" tabindex="1" class="form-control" placeholder="Fecha Nacimiento" value="">
+							</div>
+							<div class="form-group">
+								<select name="provincia" id="provincia" tabindex="1"	class="form-control" aria-placeholder="Provincia">
+									<?php
+										getProvincias();
+									?>
+								</select>
+								<!--<input required type="combo" name="provincia" id="provincia" tabindex="1" class="form-control" place placeholder="Provincia" value="">-->
+							</div>
+							<div class="form-group">
+								<input required type="combo" name="localidad" id="localidad" tabindex="1" class="form-control" placeholder="Localidad" value="">
 							</div>
 							<div class="form-group">
 								<input required type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo Electronico" value="">

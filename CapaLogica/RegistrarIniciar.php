@@ -7,6 +7,7 @@ if(isset($_POST["registrar"]))
     $documento = $_POST["documento"];
     $email = $_POST["email"];
     $password = $_POST["password"];
+    $fechaNacimiento = $_POST["fechaNac"];
 
     $alumno = new Alumno($nombre, $apellido, $email, $password, $documento);
 

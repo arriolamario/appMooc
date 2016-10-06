@@ -6,6 +6,7 @@ function validarFormRegistrar(){
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirm-password").value;
+    var fechaNac = document.getElementById("fechaNac").value;
     var isValido = true;
     var cant = 0;
     if(apellido === null || apellido.length === 0) {
@@ -32,6 +33,10 @@ function validarFormRegistrar(){
         Errores[cant++] = 'No coinciden las contraseñas';
          isValido = false;
     }
+    if(fechaNac === null){
+        Errores[cant++] = 'Campo Fecha Nacimiento obligatorio';
+         isValido = false;
+    }
 
     if(!isValido){
         var listaErrores = "";
@@ -40,6 +45,7 @@ function validarFormRegistrar(){
         }
         // documento.getElementById("CartelError").style.display = block;
         document.getElementById("CartelError").innerHTML = listaErrores;
+        
     }
 
     return isValido;
@@ -48,6 +54,6 @@ function validarFormRegistrar(){
 
 function AgregarErrores(item){
     var msg = "";
-    msg += itemi +"\n";
+    msg += item +"\n";
     return msg;
 }
