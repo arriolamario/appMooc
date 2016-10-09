@@ -2,19 +2,18 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/RegistrarIniciar.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/Funciones/getProvinciaLocalidad.php';
 ?>
-
 <!DOCTYPE HTML>
-<!-- Website template by freewebsitetemplates.com -->
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>	App Mooc</title>
 	<link rel="stylesheet" href="../css/style.css" type="text/css">
 	<link rel="stylesheet" href="../css/login.css" type="text/css">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<script src="../js/jquery-3.1.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/validacionForm.js"></script>
+	<script src="../js/funciones.js"></script>
 </head>
 <body>
 	<div id="header">
@@ -109,15 +108,11 @@
 								<input required type="date" name="fechaNac" id="fechaNac" tabindex="1" class="form-control" placeholder="Fecha Nacimiento" value="">
 							</div>
 							<div class="form-group">
-								<select name="provincia" id="provincia" tabindex="1"	class="form-control" aria-placeholder="Provincia">
-									<?php
-										getProvincias();
-									?>
+								<select name="provincia" id="SelectProvincia" tabindex="1"	class="form-control" aria-placeholder="Provincia" onchange="CargarLocalidades()">
 								</select>
-								<!--<input required type="combo" name="provincia" id="provincia" tabindex="1" class="form-control" place placeholder="Provincia" value="">-->
 							</div>
 							<div class="form-group">
-								<input required type="combo" name="localidad" id="localidad" tabindex="1" class="form-control" placeholder="Localidad" value="">
+								<select name="localidad" id="localidad" tabindex="1" class="form-control" aria-placeholder="Localidad">
 							</div>
 							<div class="form-group">
 								<input required type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo Electronico" value="">
@@ -183,5 +178,6 @@
 	<div id="footer">
 				
 	</div>
+	<script> CargarProvincias() </script>
 </body>
 </html>
