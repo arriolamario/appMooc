@@ -93,7 +93,7 @@
 							</div>
 						</div>
 					</div>
-					<form id="register-form" action="#" method="post" role="form" onsubmit="return validarFormRegistrar()">
+					<form id="register-form" action="#" method="post" role="form" onsubmit="return validarRegistro()">
 						<div class="modal-body">
 							<div class="form-group">
 								<input required type="text" name="apellido" id="apellido" tabindex="1" class="form-control" placeholder="Apellido" value="">
@@ -113,6 +113,7 @@
 							</div>
 							<div class="form-group">
 								<select name="localidad" id="localidad" tabindex="1" class="form-control" aria-placeholder="Localidad">
+								</select>
 							</div>
 							<div class="form-group">
 								<input required type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo Electronico" value="">

@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Alumno.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Estudiante.php';
 if(isset($_POST["registrar"]))
 {
     $apellido = $_POST["apellido"];
@@ -8,15 +8,13 @@ if(isset($_POST["registrar"]))
     $email = $_POST["email"];
     $password = $_POST["password"];
     $fechaNacimiento = $_POST["fechaNac"];
+    $provincia = $_POST["provincia"];
+    $localidad = $_POST["localidad"];
 
-    $alumno = new Alumno($nombre, $apellido, $email, $password, $documento);
+    $usuario = new Estudiante($nombre, $apellido, $email, $password, $provincia, $localidad, $documento, $fechaNacimiento);
 
-    $res = $alumno->grabar();
-    if($res){
-        echo "Se registro";
-    }else{
-        echo "No se registro";
-    }
+    $res = $usuario->grabar();
+    if($res) header('Location: homeEstudiante.php');
 }
 
 

@@ -1,9 +1,10 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaLogica/Funciones/armarQuery.php');
-$mysqli = false;
+$isOpen = false;
 
 function getConexion(){
     global $mysqli;
+    global $isOpen;
     //CASA
     $servidor = "localhost";
     $usuario = "mario";
@@ -16,7 +17,7 @@ function getConexion(){
     // $contraseña = "";
     // $basedatos = "appmooc2";
     
-    if($mysqli){
+    if($isOpen){
         // echo 'devolvemos la conexion creada<br>';
         return $mysqli;
     } 
@@ -26,21 +27,17 @@ function getConexion(){
         die('Error de Conexión (' . mysqli_connect_errno() . ') '
                 . mysqli_connect_error());
     }
+    $isOpen = true;
     return $mysqli;
 }
 
 function closeConexion(){
     global $mysqli;
-    if($mysqli != false){
-        if (mysqli_close($mysqli)) {
-            // echo 'se cerro correctamente la conecion';
-        }else{
-            // echo 'error al cerrar la conexion';
-        }
-    }else{
-        // echo 'esta cerrada no se cierra';
+    global $isOpen;
+    if($isOpen){
+        mysqli_close($mysqli);
     }
-    $mysqli = false;
+    $isOpen = false;
 }
 
 

@@ -4,35 +4,40 @@ function CargarProvincias(){
     for (var index = 0; index < json.length; index++) {
         var nodo = document.createElement("option");
         var texto = document.createTextNode(json[index].nombre);
-        nodo.setAttribute("value",json[index].id);
+        nodo.setAttribute("value",json[index].nombre);
         nodo.appendChild(texto);
         inputProvincia.appendChild(nodo);
     }
+    CargarLocalidades();
 }
 
 function CargarLocalidades(){
     var selectLocalidades = document.getElementById("localidad");
     var inputProvincia = document.getElementById("SelectProvincia");
-    var idProvincia = inputProvincia.selectedOptions[0].value;
-    var idProvincia2 = inputProvincia.selectedOptions.length;
+    var Provincia = inputProvincia.selectedOptions[0].value;
     
-    for (var index = 0; index < selectLocalidades.childNodes.length; index++) {
-        var elimnar = selectLocalidades.childNodes.item(index);
-        if(eliminar.nodeName != "#text"){
-            selectLocalidades.removeChild(eliminar);
-        }       
-    }
-    
+    EliminarNodosHijos("localidad");
+
     for (var index = 0; index < json.length; index++) {
-        if(json[index].id == idProvincia){
+        if(json[index].nombre == Provincia){
             for (var j = 0; j < json[index].ciudades.length; j++) {
                 var nodo = document.createElement("option");
                 var texto = document.createTextNode(json[index].ciudades[j].nombre);
-                nodo.setAttribute("value",json[index].ciudades[j].id);
+                nodo.setAttribute("value",json[index].ciudades[j].nombre);
                 nodo.appendChild(texto);
                 selectLocalidades.appendChild(nodo);                
             }
         }    
+    }
+}
+
+function EliminarNodosHijos(id){
+    var item = document.getElementById(id);
+    
+    if(item.hasChildNodes){
+        while(item.childNodes.length >= 1){
+            item.removeChild(item.firstChild);
+        }
     }
 }
 

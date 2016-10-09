@@ -1,27 +1,34 @@
+drop table usuario;
+drop table rol;
+
 CREATE TABLE  rol (
   id int(11) NOT NULL AUTO_INCREMENT,
-  nombre varchar(255) NOT NULL,
+  nombre varchar(255) NULL,
+  CONSTRAINT PK_ROLID PRIMARY key(id)
 );
+
+insert into rol (nombre) VALUES('admin');
+insert into rol (nombre) VALUES('profesor');
+insert into rol (nombre) VALUES('estudiante');
 
 CREATE TABLE  usuario (
   id int(11) NOT NULL AUTO_INCREMENT,
-  dni varchar(255) NOT NULL,
-  nombre varchar(255) NOT NULL,
-  apellido varchar(255) NOT NULL,
-  mail varchar(255) NOT NULL,
-  bajaLogica BOOL NOT NULL,
+  documento varchar(255) NULL,
+  nombre varchar(255) NULL,
+  apellido varchar(255) NULL,
+  email varchar(255) NULL,
+  estado BOOL NULL,
   idCreador int(11) NULL,
-  idLocalidad int(11) NOT NULL,
-  fechaNac date NOT NULL,
-  password varchar(255) NOT NULL,
-  idRol varchar(255) NOT NULL,
+  provincia varchar(255) NULL,
+  localidad varchar(255) NULL,
+  fechaNacimiento date NULL,
+  idRol int(11) null,
+  password varchar(255) NULL,
   CONSTRAINT PK_USUARIO PRIMARY KEY (id),
-  CONSTRAINT UQ_USUARIO_MAIL UNIQUE(mail),
+  CONSTRAINT UQ_USUARIO_MAIL UNIQUE(email),
   CONSTRAINT FK_USUARIO_USUARIO FOREIGN KEY(idCreador) REFERENCES usuario(id),
-  CONSTRAINT FK_USUARIO_ROL FOREIGN KEY(idRol) REFERENCES rol(id),
-  CONSTRAINT FK_USUARIO_LOCALIDAD FOREIGN KEY(idLocalidad) REFERENCES localidad(id)
+  CONSTRAINT FK_USUARIO_ROL FOREIGN KEY(idRol) REFERENCES rol(id)
 );
-
 
 --listo hasta aca
 
