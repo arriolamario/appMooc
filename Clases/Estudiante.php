@@ -3,6 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Usuario.php';
 class Estudiante extends Usuario{
     private $idRol = 3; 
+    private $tabla = "usuario";
     //Estudiante
     function __construct()
     { 
@@ -15,17 +16,20 @@ class Estudiante extends Usuario{
     
     function __construct1($id)
     { 
-        $resultado = select($this->tabla, array("columna" => "id", "valor" => $id));
+        $parametros["id"] = $id;
+        $resultado = select($this->getTabla(), $parametros);
         if($resultado){
             while($fila = mysqli_fetch_assoc($resultado)){
-                $this->id = intval($fila["id"]);
-                $this->nombre = $fila["nombre"];
-                $this->apellido = $fila["apellido"];
-                $this->email = $fila["email"];
-                $this->password = $fila["password"];
-                $this->tipoUsuario = $fila["tipoUsuario"];
-                $this->estado = intval($fila["estado"]);
-                $this->documento = $fila["documento"];
+                $this->setId(intval($fila["id"]));
+                $this->setNombre($fila["nombre"]);
+                $this->setApellido($fila["apellido"]);
+                $this->setEmail($fila["email"]);
+                $this->setPassword($fila["password"]);
+                $this->setEstado(intval($fila["estado"]));
+                $this->setDocumento($fila["documento"]);
+                $this->setProvincia($fila["provincia"]);
+                $this->setLocalidad($fila["localidad"]);
+                $this->setFechaNacimiento($fila["fechaNacimiento"]);
             }
         }
     } 

@@ -6,16 +6,16 @@ function getConexion(){
     global $mysqli;
     global $isOpen;
     //CASA
-    $servidor = "localhost";
-    $usuario = "mario";
-    $contraseña = "";
-    $basedatos = "appmooc2";
-    
-    //SMARTIX
     // $servidor = "localhost";
-    // $usuario = "root";
+    // $usuario = "mario";
     // $contraseña = "";
     // $basedatos = "appmooc2";
+    
+    //SMARTIX
+    $servidor = "localhost";
+    $usuario = "root";
+    $contraseña = "";
+    $basedatos = "appmooc2";
     
     if($isOpen){
         // echo 'devolvemos la conexion creada<br>';
@@ -37,7 +37,7 @@ function closeConexion(){
     if($isOpen){
         mysqli_close($mysqli);
     }
-    $isOpen = false;
+        $isOpen = false;
 }
 
 

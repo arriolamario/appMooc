@@ -43,41 +43,39 @@ class Usuario{
         $result = select($this->tabla, $parametros); 
     }
 
-        // -- nombre
+        // -- nombre*
     public function getNombre(){return $this->nombre;}
     public function setNombre($value){$this->nombre = $value;}
-        // -- apellido
+        // -- apellido*
     public function getApellido(){return $this->apellido;}
     public function setApellido($value){$this->apellido = $value;}
-        // -- email
+        // -- email*
     public function getEmail(){return $this->email;}
     public function setEmail($value){$this->email = $value;}
-        // -- password
+        // -- password*
     public function getPassword(){return $this->password;}
     public function setPassword($value){$this->password = $value;}
-        // -- estado
+        // -- estado*
     public function getEstado(){return $this->estado;}
     public function setEstado($value){$this->estado = $value;}
-        // -- documento
+        // -- documento*
     public function getDocumento(){return $this->documento;}
     public function setDocumento($value){$this->documento = $value;}
-        // -- id
+        // -- id*
     public function getId(){return $this->id;}
     public function setId($value){$this->id = $value;}
-        // -- provincia
+        // -- provincia*
     public function getProvincia(){return $this->provincia;}
     public function setProvincia($value){$this->provincia = $value;}
-        // -- localidad
+        // -- localidad*
     public function getLocalidad(){return $this->localidad;}
     public function setLocalidad($value){$this->localidad = $value;}
-        // -- fechaNacimiento
+        // -- fechaNacimiento*
     public function getFechaNacimiento(){return $this->fechaNacimiento;}
     public function setFechaNacimiento($value){$this->fechaNacimiento = $value;}
             // -- tabla
     public function getTabla(){return $this->tabla;}
     public function setTabla($value){$this->tabla = $value;}
-
-
 
 }
 ?>

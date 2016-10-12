@@ -1,5 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Estudiante.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Administrador.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Profesor.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
 if(isset($_POST["registrar"]))
 {
@@ -26,38 +28,41 @@ if(isset($_POST["registrar"]))
 if(isset($_POST["iniciar"])){
     $email = $_POST["email"];
     $password = $_POST["password"];
-
-    $u = new Usuario($email, $password);
+    $usuario = login($email,$password);
+    if($usuario){
+        echo 'login';
+    }{
+        echo 'error';
+    }
 }
 
 
-    public function login($email, $password){
-        $parametros["email"] = "'$email'";
-        $parametros["password"] = "'$password'";
+function login($email, $password){
+    $parametros["email"] = "'$email'";
+    $parametros["password"] = "'$password'";
 
-        $result = select($this->tabla, $parametros);
-        if($result){
-            $idRol;
-            while($fila = mysqli_fetch_assoc($result)){
-                $idRol = $fila["idRol"];
-            }
-
-            switch ($idRol) {
-                case '1': //
-                    # code...
-                    break;
-                case '2':
-                    # code...
-                    break;
-                case '3':
-                    # code...
-                    break;
-                default:
-                    # code...
-                    break;
-            }
+    $result = select("usuario", $parametros);
+        while($fila = mysqli_fetch_assoc($result)){
+            $idRol = $fila["idRol"];
+            $idUsuario = $fila["id"];
         }
-    }
+
+        switch ($idRol) {
+            case '1': 
+                $retorno = new Administrador($idUsuario);
+                break;
+            case '2':
+                $retorno = new Profesor($idUsuario);
+                break;
+            case '3':
+                $retorno = new Estudiante($idUsuario);
+                break;
+            default:
+                $retorno = false;
+                break;
+        }
+    return $retorno;
+}
 
 
 
