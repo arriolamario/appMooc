@@ -154,10 +154,10 @@
 					<form id="login-form" action="#" method="post" role="form" onsubmit="return validarFormIniciarSesion()">
 						<div class="modal-body">
 							<div class="form-group">
-								<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Correo Electronico" value="">
+								<input required type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo Electronico" value="">
 							</div>
 							<div class="form-group">
-								<input type="password" name="password" id="clave" tabindex="2" class="form-control" placeholder="Contraseña">
+								<input required type="password" name="password" id="clave" tabindex="2" class="form-control" placeholder="Contraseña">
 							</div>
 							<div class="form-group text-center">
 								<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -167,7 +167,7 @@
 						<div class="modal-footer">
 							<div class="form-group">
 								<div class="col-sm-6 col-sm-offset-3">
-									<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Acceder">
+									<input type="submit" name="iniciar" id="iniciar" tabindex="4" class="form-control btn btn-login" value="Acceder">
 								</div>
 							</div>                    
 						</div>

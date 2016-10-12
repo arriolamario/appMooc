@@ -36,6 +36,13 @@ class Usuario{
 
     }
 
+    public function __construct2($email, $password){
+        $parametros["email"] = "'$email'";
+        $parametros["password"] = "'$password'";
+
+        $result = select($this->tabla, $parametros); 
+    }
+
         // -- nombre
     public function getNombre(){return $this->nombre;}
     public function setNombre($value){$this->nombre = $value;}
