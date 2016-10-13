@@ -3,6 +3,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Estudiante.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Administrador.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Profesor.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
+
+
+
 if(isset($_POST["registrar"]))
 {
     $apellido = $_POST["apellido"];
@@ -18,10 +21,7 @@ if(isset($_POST["registrar"]))
 
     $res = $usuario->grabar();
     if($res) {
-        session_start();
-        $_SESSION["login"] = true;
-        $_SESSION["usuario"] = $usuario;
-        header('Location: homeEstudiante.php');
+        Redirecionar($usuario);
     }
 }
 
@@ -30,9 +30,9 @@ if(isset($_POST["iniciar"])){
     $password = $_POST["password"];
     $usuario = login($email,$password);
     if($usuario){
-        echo 'login';
-    }{
-        echo 'error';
+        Redirecionar($usuario);
+    }else{
+        echo "<script>alert(\"Login Incorrecto\")</script>";
     }
 }
 
@@ -42,28 +42,42 @@ function login($email, $password){
     $parametros["password"] = "'$password'";
 
     $result = select("usuario", $parametros);
-        while($fila = mysqli_fetch_assoc($result)){
-            $idRol = $fila["idRol"];
-            $idUsuario = $fila["id"];
-        }
+    $retorno = false;
+    if($result){
+        if(mysqli_num_rows($result) > 0 ){
+            while($fila = mysqli_fetch_assoc($result)){
+                $idRol = $fila["idRol"];
+                $idUsuario = $fila["id"];
+            }
 
-        switch ($idRol) {
-            case '1': 
-                $retorno = new Administrador($idUsuario);
-                break;
-            case '2':
-                $retorno = new Profesor($idUsuario);
-                break;
-            case '3':
-                $retorno = new Estudiante($idUsuario);
-                break;
-            default:
-                $retorno = false;
-                break;
+            switch ($idRol) {
+                case '1': 
+                    $retorno = new Administrador($idUsuario);
+                    break;
+                case '2':
+                    $retorno = new Profesor($idUsuario);
+                    break;
+                case '3':
+                    $retorno = new Estudiante($idUsuario);
+                    break;
+                default:
+                    $retorno = false;
+                    break;
+            }
+        }else{
+            $retorno = false;
         }
+    }
     return $retorno;
 }
 
+
+function Redirecionar($usuario){
+    session_start();
+    $_SESSION["login"] = true;
+    $_SESSION["usuario"] = $usuario;
+    header('Location: homeEstudiante.php');
+}
 
 
 ?>

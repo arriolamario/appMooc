@@ -3,7 +3,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Usuario.php';
 class Estudiante extends Usuario{
     private $idRol = 3; 
-    private $tabla = "usuario";
     //Estudiante
     function __construct()
     { 
@@ -37,20 +36,6 @@ class Estudiante extends Usuario{
     public function __construct8($nombre, $apellido, $email, $password, $provincia, $localidad, $documento, $fechaNacimiento)
     {
         $this->Usuario($nombre, $apellido, $email, $password, $provincia, $localidad, $documento, $fechaNacimiento);
-    }
-
-    public function mostrarDatos()
-    {
-        if($this->id){
-            echo "id $this->id<br>";    
-        }
-        echo "nombre $this->nombre<br>";
-        echo "apellido $this->apellido<br>";
-        echo "email $this->email<br>";
-        echo "password $this->password<br>";
-        echo "tipoUsuario $this->tipoUsuario<br>";
-        echo "estado $this->estado<br>";
-        echo "documento $this->documento<br>";
     }
 
     public function grabar()
