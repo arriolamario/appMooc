@@ -98,28 +98,8 @@ class Administrador extends Usuario{
 
         return $retorno;
     }
-
-            // -- nombre
-    public function getNombre(){return $this->nombre;}
-    public function setNombre($value){$this->nombre = $value;}
-        // -- apellido
-    public function getApellido(){return $this->apellido;}
-    public function setApellido($value){$this->apellido = $value;}
-        // -- email
-    public function getEmail(){return $this->email;}
-    public function setEmail($value){$this->email = $value;}
-        // -- password
-    public function getPassword(){return $this->password;}
-    public function setPassword($value){$this->password = $value;}
-        // -- estado
-    public function getEstado(){return $this->estado;}
-    public function setEstado($value){$this->estado = $value;}
-        // -- id
-    public function getId(){return $this->id;}
-    public function setId($value){$this->id = $value;}
-
-
-
-
+         // -- idRol
+    public function getIdRol(){return $this->idRol;}
+    public function setIdRol($value){$this->idRol = $value;}
 }
 ?>

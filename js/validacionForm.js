@@ -33,3 +33,18 @@ function AgregarErrores(item){
     msg += item +"\n";
     return msg;
 }
+
+function LogOut(){
+    var jqxhr = $.ajax( "/AppMooc/CapaLogica/logOut.php" )
+                .done(function() {
+                    location.reload(true);
+                })
+                .fail(function() {
+                    alert( "error" );
+                });
+
+}
+
+function LoginError(){
+    alert("Inicio incorrecto");
+}

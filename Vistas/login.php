@@ -19,7 +19,7 @@
 	<script type="text/javascript">
       $(document).ready(function() {
         var url = 'http://localhost/AppMooc/Vistas/';
-		$('#container-fluid li a').click(function(e) {
+		$('a').click(function(e) {
 			e.preventDefault(); // Previene la acción por defecto, que sería enviarte a otra página
 			var href = url + $(this).attr('href'); // Esta línea extrae el contenido del atributo href del enlace clickeado
 			$('#container').empty(); // Limpia el div 'contenido'
@@ -38,12 +38,12 @@
 					</div>
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Home</a></li>
-						<li><a href="cursos.php">Cursos</a></li>
-						<?php CargarBarraIzquierda(); ?>
+						<li><a href="pag1.php">Cursos</a></li>
+						<li><a href="pag2.php">Cursos</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<?php CargarBarraDerecha(); ?>
-					
+					<li><a href="pag3.php">Cursos</a></li>
+					<li><a href="pag4.php">Cursos</a></li>
 					</ul>
 				</div>
 			</nav>

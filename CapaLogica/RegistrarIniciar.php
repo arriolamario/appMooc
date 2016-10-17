@@ -2,9 +2,6 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Estudiante.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Administrador.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Profesor.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
-
-
 
 if(isset($_POST["registrar"]))
 {
@@ -76,8 +73,15 @@ function Redirecionar($usuario){
     session_start();
     $_SESSION["login"] = true;
     $_SESSION["usuario"] = $usuario;
-    header('Location: homeEstudiante.php');
+    header('Location: index.php');
 }
+
+function LogOut(){
+    $_SESSION["login"] = false;
+    $_SESSION["usuario"] = null;
+}
+
+
 
 
 ?>

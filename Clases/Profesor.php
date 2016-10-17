@@ -1,16 +1,10 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/CapaDatos/conexion.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/appMooc/Clases/Usuario.php';
 
-class Profesor{
-    private $id;
-    private $nombre;
-    private $apellido;
-    private $email;
-    private $password;
-    private $tipoUsuario = "PROFESOR";
-    private $estado = 1;
-    private $documento;
-    private $tabla = "usuarios";
+class Profesor extends Usuario{
+    private $idRol = 2;
+    private $idCreador;
 
     function __construct()
     { 
@@ -23,42 +17,29 @@ class Profesor{
     
     function __construct1($id)
     { 
-        $resultado = select($this->tabla, array("columna" => "id", "valor" => $id));
+        $parametros["id"] = $id;
+        $resultado = select($this->getTabla(), $parametros);
         if($resultado){
             while($fila = mysqli_fetch_assoc($resultado)){
-                $this->id = intval($fila["id"]);
-                $this->nombre = $fila["nombre"];
-                $this->apellido = $fila["apellido"];
-                $this->email = $fila["email"];
-                $this->password = $fila["password"];
-                $this->tipoUsuario = $fila["tipoUsuario"];
-                $this->estado = intval($fila["estado"]);
-                $this->documento = $fila["documento"];
+                $this->setId(intval($fila["id"]));
+                $this->setNombre($fila["nombre"]);
+                $this->setApellido($fila["apellido"]);
+                $this->setEmail($fila["email"]);
+                $this->setPassword($fila["password"]);
+                $this->setEstado(intval($fila["estado"]));
+                $this->setDocumento($fila["documento"]);
+                $this->setProvincia($fila["provincia"]);
+                $this->setLocalidad($fila["localidad"]);
+                $this->setFechaNacimiento($fila["fechaNacimiento"]);
+                $this->idCreador = $fila["idCreador"];
             }
         }
     } 
     
-    public function __construct5($nombre, $apellido, $email, $password, $documento)
+    public function __construct9($nombre, $apellido, $email, $password, $provincia, $localidad, $documento, $fechaNacimiento, $idCreador)
     {
-        $this->nombre = $nombre;
-        $this->apellido = $apellido;
-        $this->email = $email;
-        $this->password = $password;
-        $this->documento = $documento;
-    }
-
-    public function mostrarDatos()
-    {
-        if($this->id){
-            echo "id $this->id<br>";    
-        }
-        echo "nombre $this->nombre<br>";
-        echo "apellido $this->apellido<br>";
-        echo "email $this->email<br>";
-        echo "password $this->password<br>";
-        echo "tipoUsuario $this->tipoUsuario<br>";
-        echo "estado $this->estado<br>";
-        echo "documento $this->documento<br>";
+        $this->idCreador = $idCreador;
+        $this->Usuario($nombre, $apellido, $email, $password, $provincia, $localidad, $documento, $fechaNacimiento);
     }
 
     public function grabar()
@@ -108,81 +89,11 @@ class Profesor{
 
         return $retorno;
     }
-
-    // public function getUsuariosLogin($email = -1, $password = -1){
-    //     $query = "SELECT * FROM $this->tabla";
-    //     if ($email != -1 && $password != -1) {
-    //         $query = "$query WHERE email = '$email' AND password = '$password';"
-    //     }else{
-    //         $query = "$query;";
-    //     }
-    //     $conn = getConexion();
-    //     mysqli_begin_transaction($conn);
-    //     $retorno;
-    //     if()
-    // }
-        // -- nombre
-    public function getNombre(){return $this->nombre;}
-    public function setNombre($value){$this->nombre = $value;}
-        // -- apellido
-    public function getApellido(){return $this->apellido;}
-    public function setApellido($value){$this->apellido = $value;}
-        // -- email
-    public function getEmail(){return $this->email;}
-    public function setEmail($value){$this->email = $value;}
-        // -- password
-    public function getPassword(){return $this->password;}
-    public function setPassword($value){$this->password = $value;}
-        // -- estado
-    public function getEstado(){return $this->estado;}
-    public function setEstado($value){$this->estado = $value;}
-        // -- documento
-    public function getDocumento(){return $this->documento;}
-    public function setDocumento($value){$this->documento = $value;}
-        // -- id
-    public function getId(){return $this->id;}
-    public function setId($value){$this->id = $value;}
-
-
-
-
+    // -- idRol
+    public function getIdRol(){return $this->idRol;}
+    public function setIdRol($value){$this->idRol = $value;}
+  
 }
 
-    // $adm = new Administrador("mario","apellido","aa@mail.com","pwd");
-    // $adm->grabar();
-    // $adm->mostrarDatos(); 
-    // $adm->eliminar();
-    
-    // $alumno = new Profesor("alejandra","diaz","a@diaz.com","diaazpwd","36692161");
-    // echo "grabamos";
-    // if($alumno->grabar()){
-    //     echo "se grabo correctamente<br>";
-    // }else{
-    //     echo "No se grabo correctamente<br>";
-    // }
-    
-    // $alumno->mostrarDatos();
-
-    // $alumno->setDocumento("otro documento");
-    // $alumno->setEstado(0);
-
-    // // echo "actualizamos<br>";
-    // if($alumno->actualizar()){
-    //     echo "se actualizo correctamente<br>";
-    // }else{
-    //     echo "no se actualizo correctamente<br>";
-    // }
-
-    // echo "creamos una instancia nueva de alumno guardada en la base<br>";
-    // $alumno2 = new Profesor($alumno->getId());
-
-    // $alumno2->mostrarDatos();
-
-    // echo "eliminamos<br>";
-
-    // if($alumno->eliminar()){
-    //     echo "se elimino correctamente<br>";
-    // }else{
-    //     echo "no se elimino correctamente<br>";
-    // }
+     
 ?>
